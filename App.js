@@ -2,17 +2,66 @@ import { StyleSheet, Text, View, Button} from 'react-native';
 //import { useState } from 'react/cjs/react.production.min';
 import React,{useState} from 'react';
 export default function App() {
-  const [display,displaySet]=useState()
+  const [display,displaySet]=useState(0)
+  const [memory,memorySet]=useState(0)
+  const [operation,operationSet]=useState("")
 
   function tecla(valor){
-    displaySet(valor)
-    // displaySet(valor.valor.length)
-    // if(valorLength = 1){
-    //   displaySet(valor + valor)
-    //   displaySet('nada')
-    // } else{
-    //   displaySet('dsds')
+    
+    // const calculator = {
+    //   "c": (0,0,""),
+    //   "=" :{
+    //     "+":(memory,display) => memory+display,
+    //     "-":(memory,display) => memory-display,
+    //     "x":(memory,display) => memory*display,
+    //     "/":(memory,display) => memory/display,
+    //   },
+    //   "+":(display,0,valor),
+    //   "-":(display,0,valor),
+    //   "x":(display,0,valor),
+    //   "/":(display,0,valor),
     // }
+    // const result = calculator[operationSet](memory,display,operation)
+    // displaySet(result)
+
+    if(valor==="c"){
+      displaySet(0)
+      memorySet(0)
+      operationSet("")
+
+    }else if(valor==="="){
+      if(operation==="+"){
+        displaySet(memory+display)
+      }
+      if(operation==="-"){
+        displaySet(memory-display)
+      }
+      if(operation==="x"){
+        displaySet(memory*display)
+      }
+      if(operation==="/"){
+        displaySet(memory/display)
+      }
+    }else if(valor==="+"){
+      memorySet(display)
+      displaySet(0)
+      operationSet(valor)
+    }else if(valor==="-"){
+      memorySet(display)
+      displaySet(0)
+      operationSet(valor)
+    }else if(valor==="x"){
+      memorySet(display)
+      displaySet(0)
+      operationSet(valor)
+    }else if(valor==="/"){
+      memorySet(display)
+      displaySet(0)
+      operationSet(valor)
+    }
+    else{
+      displaySet(display*10+valor)
+    }
   }
   
   return (
@@ -24,20 +73,24 @@ export default function App() {
         <View style={styles.allOptions}>
             <View style={styles.options}>
               <View style={styles.buttonOptionGray}>
-                <Button color='transparent' title="C" onPress={()=>tecla()}/>
+                <Button color='transparent' title="C" onPress={()=>tecla("c")}/>
               </View>
               <View style={styles.buttonOptionGray}>
                 <Button
                 color='transparent'
-                title="+/-" onPress={()=>tecla()}/>
+                title="+/-" 
+                //onPress={()=>tecla()}
+                />
               </View>
               <View style={styles.buttonOptionGray}>
                 <Button
-                color='transparent' title="%" onPress={()=>tecla()}/>
+                color='transparent' title="%" 
+                //onPress={()=>tecla()}
+                />
               </View>
               <View style={styles.buttonOptionYellow}>
                 <Button
-                color='transparent' title="/" onPress={()=>tecla()}/>
+                color='transparent' title="/" onPress={()=>tecla("/")}/>
               </View>
             </View>
             <View style={styles.options}>
@@ -55,7 +108,7 @@ export default function App() {
               </View>
               <View style={styles.buttonOptionYellow}>
                 <Button
-                color='transparent' title="X" onPress={()=>tecla()}/>
+                color='transparent' title="X" onPress={()=>tecla("x")}/>
               </View>
             </View>
             <View style={styles.options}>
@@ -73,7 +126,7 @@ export default function App() {
               </View>
               <View style={styles.buttonOptionYellow}>
                 <Button
-                color='transparent' title="-" onPress={()=>tecla()}/>
+                color='transparent' title="-" onPress={()=>tecla("-")}/>
               </View>
             </View>
             <View style={styles.options}>
@@ -91,7 +144,7 @@ export default function App() {
               </View>
               <View style={styles.buttonOptionYellow}>
                 <Button
-                color='transparent' title="+" onPress={()=>tecla()}/>
+                color='transparent' title="+" onPress={()=>tecla("+")}/>
               </View>
             </View>
             <View style={styles.options}>
@@ -101,11 +154,13 @@ export default function App() {
               </View>
               <View style={styles.buttonOptionBlack}>
                 <Button
-                color='transparent' title="," onPress={()=>tecla(',')}/>
+                color='transparent' title="," 
+                //onPress={()=>tecla()}
+                />
               </View>
               <View style={styles.buttonOptionYellow}>
                 <Button
-                color='transparent' title="=" onPress={()=>tecla()}/>
+                color='transparent' title="=" onPress={()=>tecla("=")}/>
               </View>
             </View>
         </View>
@@ -202,7 +257,7 @@ const styles = StyleSheet.create({
     color:'white',
     fontWeight:'bold',
   },  
-});
+})
 const Names = (props) => {
   return (
     <View>
